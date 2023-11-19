@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { members } from "shared/members";
 import styled from "styled-components";
+import { CommonContext } from "context/CommonContext";
 
-function Button({ setSelectedMemberName }) {
+function Button() {
+  const { setSelectedMemberName } = useContext(CommonContext);
+
   const memberClickHandler = (name) => {
     setSelectedMemberName(name);
   };

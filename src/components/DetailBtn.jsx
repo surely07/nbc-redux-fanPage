@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Btn, BtnArea } from "assets/Theme";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { CommonContext, DetailContext } from "context/CommonContext";
 
-function DetailBtn({
-  comment,
-  setCommentsList,
-  editedContent,
-  setEditedContent,
-}) {
+function DetailBtn() {
+  const { setCommentsList } = useContext(CommonContext);
+  const { comment, editedContent, setEditedContent } =
+    useContext(DetailContext);
+
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);

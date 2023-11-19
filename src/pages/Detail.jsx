@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { CommentInfoBox, CommentFont } from "assets/Theme";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import DetailBtn from "components/DetailBtn";
+import { DetailContext, CommonContext } from "context/CommonContext";
 
-function Detail({ commentsList, setCommentsList }) {
+function Detail() {
+  const { commentsList } = useContext(CommonContext);
+
   const { id } = useParams();
   const [comment, setComment] = useState(null);
   const [editedContent, setEditedContent] = useState("");
@@ -19,39 +22,38 @@ function Detail({ commentsList, setCommentsList }) {
 
   return (
     <div>
-      {comment && (
-        <CommentDetailBox>
-          <CommentInfoBox>
-            <figure>
-              <Avatar src={comment.avatar} alt={comment.nickname}></Avatar>
-            </figure>
-            <CommentInfo>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  lineHeight: "1.3",
-                }}
-              >
-                <h3>To.{comment.writedTo}</h3>
-                <CommentFont fontSize="20px" fontWeight="500">
-                  {comment.nickname}
-                </CommentFont>
-                <CommentFont fontSize="13px" fontWeight="200">
-                  {comment.createdAt}
-                </CommentFont>
-              </div>
-            </CommentInfo>
-          </CommentInfoBox>
-          <DetailBtn
-            comment={comment}
-            setCommentsList={setCommentsList}
-            editedContent={editedContent}
-            setEditedContent={setEditedContent}
-          />
-        </CommentDetailBox>
-      )}
+      <DetailContext.Provider
+        value={{ comment, editedContent, setEditedContent }}
+      >
+        {comment && (
+          <CommentDetailBox>
+            <CommentInfoBox>
+              <figure>
+                <Avatar src={comment.avatar} alt={comment.nickname}></Avatar>
+              </figure>
+              <CommentInfo>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    lineHeight: "1.3",
+                  }}
+                >
+                  <h3>To.{comment.writedTo}</h3>
+                  <CommentFont fontSize="20px" fontWeight="500">
+                    {comment.nickname}
+                  </CommentFont>
+                  <CommentFont fontSize="13px" fontWeight="200">
+                    {comment.createdAt}
+                  </CommentFont>
+                </div>
+              </CommentInfo>
+            </CommentInfoBox>
+            <DetailBtn />
+          </CommentDetailBox>
+        )}
+      </DetailContext.Provider>
     </div>
   );
 }

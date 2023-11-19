@@ -5,41 +5,30 @@ import Detail from "pages/Detail";
 import COMMENTDATA from "shared/commentData";
 import Footer from "components/Footer";
 import { useState } from "react";
+import { CommonContext } from "context/CommonContext";
 
 const Router = () => {
   const [selectedMemberName, setSelectedMemberName] = useState("all");
   const [commentsList, setCommentsList] = useState(COMMENTDATA);
 
   return (
-    <BrowserRouter>
-      <Header />
-
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              commentsList={commentsList}
-              setCommentsList={setCommentsList}
-              selectedMemberName={selectedMemberName}
-              setSelectedMemberName={setSelectedMemberName}
-            />
-          }
-        />
-        <Route
-          path="detail/:id"
-          element={
-            <Detail
-              commentsList={commentsList}
-              setCommentsList={setCommentsList}
-              selectedMemberName={selectedMemberName}
-            />
-          }
-        />
-      </Routes>
-
-      <Footer />
-    </BrowserRouter>
+    <CommonContext.Provider
+      value={{
+        selectedMemberName,
+        setSelectedMemberName,
+        commentsList,
+        setCommentsList,
+      }}
+    >
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="detail/:id" element={<Detail />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </CommonContext.Provider>
   );
 };
 

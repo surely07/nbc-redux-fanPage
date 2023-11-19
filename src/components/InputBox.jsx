@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
 import { Btn, BtnArea } from "assets/Theme";
+import { CommonContext } from "context/CommonContext";
 
-function InputBox({
-  commentsList,
-  setCommentsList,
-  selectedMemberName,
-  setSelectedMemberName,
-}) {
+function InputBox() {
+  const {
+    selectedMemberName,
+    setSelectedMemberName,
+    commentsList,
+    setCommentsList,
+  } = useContext(CommonContext);
+
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
 

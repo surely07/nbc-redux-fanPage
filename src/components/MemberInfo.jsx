@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { members } from "shared/members";
 import {
@@ -7,8 +7,11 @@ import {
   MemberDetail,
   MemberNumber,
 } from "assets/Theme";
+import { CommonContext } from "context/CommonContext";
 
-function MemberInfo({ selectedMemberName }) {
+function MemberInfo() {
+  const { selectedMemberName } = useContext(CommonContext);
+
   const selectedMember = members.find(
     (member) => member.name === selectedMemberName
   );

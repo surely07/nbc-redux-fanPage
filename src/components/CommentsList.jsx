@@ -1,11 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { CommentInfoBox, CommentFont } from "assets/Theme";
+import { CommonContext } from "context/CommonContext";
 
-function CommentsList({ commentsList, selectedMemberName, setCommentsList }) {
+function CommentsList() {
+  const { selectedMemberName, commentsList, setCommentsList } =
+    useContext(CommonContext);
+
   const navigate = useNavigate();
 
   useEffect(() => {

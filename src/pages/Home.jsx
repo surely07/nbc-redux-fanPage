@@ -5,32 +5,15 @@ import InputBox from "components/InputBox";
 import CommentsList from "components/CommentsList";
 import Button from "components/Button";
 
-function Home({
-  commentsList,
-  setCommentsList,
-  selectedMemberName,
-  setSelectedMemberName,
-}) {
+function Home() {
   return (
     <MainDisplay>
-      <Button
-        selectedMemberName={selectedMemberName}
-        setSelectedMemberName={setSelectedMemberName}
-      />
+      <Button />
       <MainContainer>
-        <MemberInfo selectedMemberName={selectedMemberName} />
+        <MemberInfo />
       </MainContainer>
-      <InputBox
-        selectedMemberName={selectedMemberName}
-        setSelectedMemberName={setSelectedMemberName}
-        commentsList={commentsList}
-        setCommentsList={setCommentsList}
-      />
-      <CommentsList
-        commentsList={commentsList}
-        setCommentsList={setCommentsList}
-        selectedMemberName={selectedMemberName}
-      />
+      <InputBox />
+      <CommentsList />
     </MainDisplay>
   );
 }
