@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
     <HeaderBox>
-      <HeaderFont href="/">Tottenham Hotspur</HeaderFont>
+      <HeaderFont to="/">Tottenham Hotspur</HeaderFont>
     </HeaderBox>
   );
 }
@@ -21,7 +22,7 @@ const HeaderBox = styled.div`
   justify-content: center;
 `;
 
-const HeaderFont = styled.a`
+const HeaderFont = styled(Link)`
   color: white;
   font-size: 40px;
   padding: 20px;

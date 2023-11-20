@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { CommentInfoBox, CommentFont } from "assets/Theme";
 import { CommonContext } from "context/CommonContext";
+import db from "db";
 
 function CommentsList() {
   const { selectedMemberName, commentsList, setCommentsList } =
@@ -12,13 +13,17 @@ function CommentsList() {
 
   const navigate = useNavigate();
 
+  console.log();
   useEffect(() => {
+    if (commentsList.length !== 0) {
+      return;
+    }
     const fetchData = async () => {
       const response = await axios.get("http://localhost:3001/commentData");
       setCommentsList(response.data);
     };
     fetchData();
-  }, [setCommentsList]);
+  }, []);
 
   const filteredComments =
     selectedMemberName !== "all"
