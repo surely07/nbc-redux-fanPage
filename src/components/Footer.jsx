@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { MainDisplay } from "assets/Theme";
+import { MainDisplay } from "style/Theme";
 
 function Footer() {
   return (

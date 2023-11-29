@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { CommentInfoBox, CommentFont } from "assets/Theme";
-import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import DetailBtn from "components/DetailBtn";
+import styled from "styled-components";
+import { CommentInfoBox, CommentFont } from "style/Theme";
 import { LetterContext } from "context/LetterContext";
-// import { DetailContext, CommonContext } from "context/CommonContext";
+import DetailBtn from "components/DetailBtn";
 
 function Detail() {
   const { letters } = useContext(LetterContext);
@@ -22,9 +21,6 @@ function Detail() {
 
   return (
     <div>
-      {/* <DetailContext.Provider
-        value={{ comment, editedContent, setEditedContent }}
-      > */}
       {comment && (
         <CommentDetailBox>
           <CommentInfoBox>
@@ -58,7 +54,6 @@ function Detail() {
           />
         </CommentDetailBox>
       )}
-      {/* </DetailContext.Provider> */}
     </div>
   );
 }

@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { members } from "common/members";
+import { MemberContext } from "context/MemberContext";
 import {
   MainDisplay,
   MainContainer,
   MemberDetail,
   MemberNumber,
-} from "assets/Theme";
-import { MemberContext } from "context/MemberContext";
-// import { CommonContext } from "context/CommonContext";
+} from "style/Theme";
 
 function MemberInfo() {
   const { selectedMemberName } = useContext(MemberContext);

@@ -1,15 +1,12 @@
 import React, { useContext, useState } from "react";
-import { Btn, BtnArea } from "assets/Theme";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import axios from "axios";
 import { LetterContext } from "context/LetterContext";
-// import { CommonContext, DetailContext } from "context/CommonContext";
+import styled from "styled-components";
+import { Btn, BtnArea } from "style/Theme";
 
 function DetailBtn({ comment, editedContent, setEditedContent, id }) {
   const { letters, setLetters } = useContext(LetterContext);
-  // const { comment, editedContent, setEditedContent } =
-  //   useContext(DetailContext);
 
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);

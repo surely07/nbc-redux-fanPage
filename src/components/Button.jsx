@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { members } from "common/members";
 import styled from "styled-components";
 import { MemberContext } from "context/MemberContext";
+import { members } from "common/members";
 
 function Button() {
   const { setSelectedMemberName } = useContext(MemberContext);

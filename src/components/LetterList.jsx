@@ -1,20 +1,16 @@
 import React, { useContext } from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { CommentInfoBox, CommentFont } from "assets/Theme";
+import styled from "styled-components";
 import { LetterContext } from "context/LetterContext";
 import { MemberContext } from "context/MemberContext";
-// import { CommonContext } from "context/CommonContext";
-// import db from "db";
+import { CommentInfoBox, CommentFont } from "style/Theme";
 
 function LettersList() {
   const { letters } = useContext(LetterContext);
   const { selectedMemberName } = useContext(MemberContext);
 
   const navigate = useNavigate();
-
-  console.log(letters);
 
   const filteredComments =
     selectedMemberName !== "all"
@@ -64,20 +60,6 @@ function LettersList() {
 }
 
 export default LettersList;
-
-// {
-//   /* // {selectedMemberName !== "all" &&
-//       //   letters.filter(
-//       //     (comment) => comment.writedTo === selectedMemberName
-//       //   ).length === 0 && (
-//       //     <NoComment>
-//       //       당신의 HERO, <span>{selectedMemberName}</span> 선수에게 첫 번째
-//       //       팬레터를 보내세요!.
-//       //     </NoComment>
-//       //   )}
-//   );
-// } */
-// }
 
 const StyledLink = styled(Link)`
   text-decoration: none;

@@ -1,22 +1,15 @@
 import React, { useContext, useState } from "react";
 import uuid from "react-uuid";
-import styled from "styled-components";
-import { Btn, BtnArea } from "assets/Theme";
 import axios from "axios";
 import { LetterContext } from "context/LetterContext";
 import { MemberContext } from "context/MemberContext";
-// import { CommonContext } from "context/CommonContext";
+import styled from "styled-components";
+import { Btn, BtnArea } from "style/Theme";
 
 function InputBox() {
   const { letters, setLetters } = useContext(LetterContext);
   const { selectedMemberName, setSelectedMemberName } =
     useContext(MemberContext);
-  // const {
-  //   selectedMemberName,
-  //   setSelectedMemberName,
-  //   letters,
-  //   setLetters,
-  // } = useContext(CommonContext);
 
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");

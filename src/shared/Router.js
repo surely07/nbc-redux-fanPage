@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import axios from "axios";
+import { LetterContext } from "context/LetterContext";
 import Header from "components/Header";
 import Home from "pages/Home";
 import Detail from "pages/Detail";
 import Footer from "components/Footer";
-import { useContext, useEffect } from "react";
-import axios from "axios";
-import { LetterContext } from "context/LetterContext";
 
 const Router = () => {
   const { setLetters } = useContext(LetterContext);
