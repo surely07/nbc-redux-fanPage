@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CommentInfoBox, CommentFont } from "assets/Theme";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import DetailBtn from "components/DetailBtn";
+import { LetterContext } from "context/LetterContext";
 // import { DetailContext, CommonContext } from "context/CommonContext";
 
-function Detail({ commentsList, setCommentsList }) {
-  // const { commentsList } = useContext(CommonContext);
+function Detail() {
+  const { letters } = useContext(LetterContext);
 
   const { id } = useParams();
   const [comment, setComment] = useState(null);
   const [editedContent, setEditedContent] = useState("");
 
   useEffect(() => {
-    console.log(commentsList);
-    const selectedComment = commentsList.find((comment) => comment.id === id);
+    console.log(letters);
+    const selectedComment = letters.find((comment) => comment.id === id);
     setComment(selectedComment);
     setEditedContent(selectedComment?.content || "");
-  }, [commentsList, id]);
+  }, [letters, id]);
 
   return (
     <div>
