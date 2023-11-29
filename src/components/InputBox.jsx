@@ -1,15 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import uuid from "react-uuid";
 import axios from "axios";
-import { LetterContext } from "context/LetterContext";
-import { MemberContext } from "context/MemberContext";
 import styled from "styled-components";
 import { Btn, BtnArea } from "style/Theme";
+import { addLetter, editLetter } from "redux/modules/letters";
+import { useDispatch, useSelector } from "react-redux";
 
 function InputBox() {
-  const { letters, setLetters } = useContext(LetterContext);
-  const { selectedMemberName, setSelectedMemberName } =
-    useContext(MemberContext);
+  const selectedMemberName = useSelector((state) => state.member);
+  const dispatch = useDispatch();
 
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
@@ -34,7 +33,7 @@ function InputBox() {
     } else {
       await axios.post("http://localhost:3001/commentData", newComment);
 
-      setLetters([...letters, newComment]);
+      dispatch(addLetter(newComment));
       setName("");
       setComment("");
     }
@@ -75,7 +74,7 @@ function InputBox() {
             <select
               id="select"
               value={selectedMemberName}
-              onChange={(e) => setSelectedMemberName(e.target.value)}
+              onChange={(e) => dispatch(editLetter(e.target.value))}
             >
               <option>all</option>
               <option>Heung-Min Son</option>

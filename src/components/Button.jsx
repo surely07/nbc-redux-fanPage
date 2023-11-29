@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { MemberContext } from "context/MemberContext";
 import { members } from "common/members";
+import { useDispatch } from "react-redux";
+import { setMember } from "redux/modules/member";
 
 function Button() {
-  const { setSelectedMemberName } = useContext(MemberContext);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -14,7 +15,7 @@ function Button() {
             <div key={item.id}>
               <PlayerBtn
                 onClick={() => {
-                  setSelectedMemberName(item.name);
+                  dispatch(setMember(item.name));
                 }}
               >
                 {item.name}

@@ -1,19 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { CommentInfoBox, CommentFont } from "style/Theme";
-import { LetterContext } from "context/LetterContext";
 import DetailBtn from "components/DetailBtn";
+import { useSelector } from "react-redux";
 
 function Detail() {
-  const { letters } = useContext(LetterContext);
+  const letters = useSelector((state) => state.letters);
 
   const { id } = useParams();
   const [comment, setComment] = useState(null);
   const [editedContent, setEditedContent] = useState("");
 
   useEffect(() => {
-    console.log(letters);
     const selectedComment = letters.find((comment) => comment.id === id);
     setComment(selectedComment);
     setEditedContent(selectedComment?.content || "");

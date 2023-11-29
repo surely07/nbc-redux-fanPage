@@ -1,14 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import LetterContextProvider from "context/LetterContext";
-import MemberContextProvider from "context/MemberContext";
+import { Provider } from "react-redux";
+import store from "redux/config/configStore";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <MemberContextProvider>
-    <LetterContextProvider>
-      <App />
-    </LetterContextProvider>
-  </MemberContextProvider>
+  <Provider store={store}>
+    <App />
+  </Provider>
 );

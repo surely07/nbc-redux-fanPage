@@ -1,12 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { LetterContext } from "context/LetterContext";
 import styled from "styled-components";
 import { Btn, BtnArea } from "style/Theme";
+import { useDispatch } from "react-redux";
+import { deleteLetter, editLetter } from "redux/modules/letters";
 
 function DetailBtn({ comment, editedContent, setEditedContent, id }) {
-  const { letters, setLetters } = useContext(LetterContext);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
@@ -15,11 +16,9 @@ function DetailBtn({ comment, editedContent, setEditedContent, id }) {
     const answer = window.confirm("정말로 삭제하시겠습니까?");
     if (!answer) return;
 
-    const newComments = letters.filter((comment) => comment.id !== id);
     await axios.delete(`http://localhost:3001/commentData/${id}`);
-    console.log(newComments);
     navigate("/");
-    setLetters(newComments);
+    dispatch(deleteLetter(id));
   };
 
   const handleSaveBtn = async () => {
@@ -28,17 +27,12 @@ function DetailBtn({ comment, editedContent, setEditedContent, id }) {
       return;
     }
 
-    const newComments = letters.map((comment) => {
-      return comment.id === id
-        ? { ...comment, content: editedContent }
-        : comment;
-    });
     await axios.patch(`http://localhost:3001/commentData/${id}`, {
       ...comment,
       content: editedContent,
     });
+    dispatch(editLetter(id, editedContent));
 
-    setLetters(newComments);
     setIsEditing(false);
   };
 

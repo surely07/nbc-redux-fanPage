@@ -1,14 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { LetterContext } from "context/LetterContext";
-import { MemberContext } from "context/MemberContext";
 import { CommentInfoBox, CommentFont } from "style/Theme";
+import { useSelector } from "react-redux";
 
 function LettersList() {
-  const { letters } = useContext(LetterContext);
-  const { selectedMemberName } = useContext(MemberContext);
+  const letters = useSelector((state) => state.letters);
+  const selectedMemberName = useSelector((state) => state.member);
 
   const navigate = useNavigate();
 

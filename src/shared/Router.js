@@ -1,22 +1,24 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
-import { LetterContext } from "context/LetterContext";
 import Header from "components/Header";
 import Home from "pages/Home";
 import Detail from "pages/Detail";
 import Footer from "components/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { setLetter } from "redux/modules/letters";
 
 const Router = () => {
-  const { setLetters } = useContext(LetterContext);
+  const letters = useSelector((state) => state.letters);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get("http://localhost:3001/commentData");
-      setLetters(response.data);
+      dispatch(setLetter(response.data));
     };
     fetchData();
-  }, [setLetters]);
+  }, []);
 
   return (
     <BrowserRouter>
