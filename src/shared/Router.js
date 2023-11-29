@@ -3,13 +3,12 @@ import Header from "components/Header";
 import Home from "pages/Home";
 import Detail from "pages/Detail";
 import Footer from "components/Footer";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import axios from "axios";
 import { LetterContext } from "context/LetterContext";
 
 const Router = () => {
   const { setLetters } = useContext(LetterContext);
-  const [selectedMemberName, setSelectedMemberName] = useState("all");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,24 +22,8 @@ const Router = () => {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              selectedMemberName={selectedMemberName}
-              setSelectedMemberName={setSelectedMemberName}
-            />
-          }
-        />
-        <Route
-          path="detail/:id"
-          element={
-            <Detail
-              selectedMemberName={selectedMemberName}
-              setSelectedMemberName={setSelectedMemberName}
-            />
-          }
-        />
+        <Route path="/" element={<Home />} />
+        <Route path="detail/:id" element={<Detail />} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-export const MemberContext = createContext(null);
+export const MemberContext = createContext();
 
 function MemberContextProvider({ children }) {
   const [selectedMemberName, setSelectedMemberName] = useState("all");
