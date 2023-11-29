@@ -2,18 +2,21 @@ import React from "react";
 import { MainDisplay, MainContainer } from "assets/Theme";
 import MemberInfo from "components/MemberInfo";
 import InputBox from "components/InputBox";
-import LetterList from "components/LetterList";
 import Button from "components/Button";
+import LettersList from "components/LetterList";
 
-function Home() {
+function Home({ selectedMemberName, setSelectedMemberName }) {
   return (
     <MainDisplay>
-      <Button />
+      <Button setSelectedMemberName={setSelectedMemberName} />
       <MainContainer>
-        <MemberInfo />
+        <MemberInfo selectedMemberName={selectedMemberName} />
       </MainContainer>
-      <InputBox />
-      <LetterList />
+      <InputBox
+        selectedMemberName={selectedMemberName}
+        setSelectedMemberName={setSelectedMemberName}
+      />
+      <LettersList selectedMemberName={selectedMemberName} />
     </MainDisplay>
   );
 }

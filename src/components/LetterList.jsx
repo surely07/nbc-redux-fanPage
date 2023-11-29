@@ -4,13 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { CommentInfoBox, CommentFont } from "assets/Theme";
 import { LetterContext } from "context/LetterContext";
-import { MemberContext } from "context/MemberContext";
 // import { CommonContext } from "context/CommonContext";
 // import db from "db";
 
-function LettersList() {
+function LettersList({ selectedMemberName }) {
   const { letters } = useContext(LetterContext);
-  const { selectedMemberName } = useContext(MemberContext);
 
   const navigate = useNavigate();
 

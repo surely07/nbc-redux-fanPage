@@ -3,8 +3,7 @@ import { createContext, useState } from "react";
 export const MemberContext = createContext(null);
 
 function MemberContextProvider({ children }) {
-  const [selectedMemberName, setSelectedMemberName] = useState();
-
+  const [selectedMemberName, setSelectedMemberName] = useState("all");
   return (
     <MemberContext.Provider
       value={{ selectedMemberName, setSelectedMemberName }}

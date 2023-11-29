@@ -4,13 +4,10 @@ import styled from "styled-components";
 import { Btn, BtnArea } from "assets/Theme";
 import axios from "axios";
 import { LetterContext } from "context/LetterContext";
-import { MemberContext } from "context/MemberContext";
 // import { CommonContext } from "context/CommonContext";
 
-function InputBox() {
+function InputBox({ selectedMemberName, setSelectedMemberName }) {
   const { letters, setLetters } = useContext(LetterContext);
-  const { selectedMemberName, setSelectedMemberName } =
-    useContext(MemberContext);
   // const {
   //   selectedMemberName,
   //   setSelectedMemberName,
