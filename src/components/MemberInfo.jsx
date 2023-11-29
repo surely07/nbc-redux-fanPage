@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { members } from "common/members";
+import { MemberContext } from "context/MemberContext";
 import {
   MainDisplay,
   MainContainer,
   MemberDetail,
   MemberNumber,
 } from "assets/Theme";
-// import { CommonContext } from "context/CommonContext";
 
-function MemberInfo({ selectedMemberName }) {
-  // const { selectedMemberName } = useContext(CommonContext);
+function MemberInfo() {
+  const { selectedMemberName } = useContext(MemberContext);
 
   const selectedMember = members.find(
     (member) => member.name === selectedMemberName

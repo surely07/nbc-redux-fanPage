@@ -1,25 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { CommentInfoBox, CommentFont } from "assets/Theme";
+import { LetterContext } from "context/LetterContext";
+import { MemberContext } from "context/MemberContext";
 // import { CommonContext } from "context/CommonContext";
 // import db from "db";
 
-function CommentsList({ selectedMemberName, commentsList }) {
-  // const { selectedMemberName, commentsList, setCommentsList } =
-  //   useContext(CommonContext);
+function LettersList() {
+  const { letters } = useContext(LetterContext);
+  const { selectedMemberName } = useContext(MemberContext);
 
   const navigate = useNavigate();
 
-  console.log(commentsList);
+  console.log(letters);
 
   const filteredComments =
     selectedMemberName !== "all"
-      ? commentsList.filter(
-          (comment) => comment.writedTo === selectedMemberName
-        )
-      : commentsList;
+      ? letters.filter((comment) => comment.writedTo === selectedMemberName)
+      : letters;
 
   return (
     <CommentWindow>
@@ -63,11 +63,11 @@ function CommentsList({ selectedMemberName, commentsList }) {
   );
 }
 
-export default CommentsList;
+export default LettersList;
 
 // {
 //   /* // {selectedMemberName !== "all" &&
-//       //   commentsList.filter(
+//       //   letters.filter(
 //       //     (comment) => comment.writedTo === selectedMemberName
 //       //   ).length === 0 && (
 //       //     <NoComment>

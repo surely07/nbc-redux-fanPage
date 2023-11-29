@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
 import { Btn, BtnArea } from "assets/Theme";
 import axios from "axios";
+import { LetterContext } from "context/LetterContext";
+import { MemberContext } from "context/MemberContext";
 // import { CommonContext } from "context/CommonContext";
 
-function InputBox({
-  selectedMemberName,
-  setSelectedMemberName,
-  commentsList,
-  setCommentsList,
-}) {
+function InputBox() {
+  const { letters, setLetters } = useContext(LetterContext);
+  const { selectedMemberName, setSelectedMemberName } =
+    useContext(MemberContext);
   // const {
   //   selectedMemberName,
   //   setSelectedMemberName,
-  //   commentsList,
-  //   setCommentsList,
+  //   letters,
+  //   setLetters,
   // } = useContext(CommonContext);
 
   const [name, setName] = useState("");
@@ -41,7 +41,7 @@ function InputBox({
     } else {
       await axios.post("http://localhost:3001/commentData", newComment);
 
-      setCommentsList([...commentsList, newComment]);
+      setLetters([...letters, newComment]);
       setName("");
       setComment("");
     }

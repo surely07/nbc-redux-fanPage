@@ -1,19 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Btn, BtnArea } from "assets/Theme";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { LetterContext } from "context/LetterContext";
 // import { CommonContext, DetailContext } from "context/CommonContext";
 
-function DetailBtn({
-  comment,
-  editedContent,
-  setEditedContent,
-  setCommentsList,
-  commentsList,
-  id,
-}) {
-  // const { setCommentsList } = useContext(CommonContext);
+function DetailBtn({ comment, editedContent, setEditedContent, id }) {
+  const { letters, setLetters } = useContext(LetterContext);
   // const { comment, editedContent, setEditedContent } =
   //   useContext(DetailContext);
 
@@ -24,11 +18,11 @@ function DetailBtn({
     const answer = window.confirm("정말로 삭제하시겠습니까?");
     if (!answer) return;
 
-    const newComments = commentsList.filter((comment) => comment.id !== id);
+    const newComments = letters.filter((comment) => comment.id !== id);
     await axios.delete(`http://localhost:3001/commentData/${id}`);
     console.log(newComments);
     navigate("/");
-    setCommentsList(newComments);
+    setLetters(newComments);
   };
 
   const handleSaveBtn = async () => {
@@ -37,7 +31,7 @@ function DetailBtn({
       return;
     }
 
-    const newComments = commentsList.map((comment) => {
+    const newComments = letters.map((comment) => {
       return comment.id === id
         ? { ...comment, content: editedContent }
         : comment;
@@ -47,7 +41,7 @@ function DetailBtn({
       content: editedContent,
     });
 
-    setCommentsList(newComments);
+    setLetters(newComments);
     setIsEditing(false);
   };
 
