@@ -1,59 +1,65 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { CommentInfoBox, CommentFont } from "assets/Theme";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import DetailBtn from "components/DetailBtn";
-import { DetailContext, CommonContext } from "context/CommonContext";
+// import { DetailContext, CommonContext } from "context/CommonContext";
 
-function Detail() {
-  const { commentsList } = useContext(CommonContext);
+function Detail({ commentsList, setCommentsList }) {
+  // const { commentsList } = useContext(CommonContext);
 
   const { id } = useParams();
   const [comment, setComment] = useState(null);
   const [editedContent, setEditedContent] = useState("");
 
   useEffect(() => {
-    const selectedComment = commentsList.find(
-      (comment) => comment.id === parseInt(id, 10)
-    );
+    console.log(commentsList);
+    const selectedComment = commentsList.find((comment) => comment.id === id);
     setComment(selectedComment);
     setEditedContent(selectedComment?.content || "");
   }, [commentsList, id]);
 
   return (
     <div>
-      <DetailContext.Provider
+      {/* <DetailContext.Provider
         value={{ comment, editedContent, setEditedContent }}
-      >
-        {comment && (
-          <CommentDetailBox>
-            <CommentInfoBox>
-              <figure>
-                <Avatar src={comment.avatar} alt={comment.nickname}></Avatar>
-              </figure>
-              <CommentInfo>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
-                    lineHeight: "1.3",
-                  }}
-                >
-                  <h3>To.{comment.writedTo}</h3>
-                  <CommentFont fontSize="20px" fontWeight="500">
-                    {comment.nickname}
-                  </CommentFont>
-                  <CommentFont fontSize="13px" fontWeight="200">
-                    {comment.createdAt}
-                  </CommentFont>
-                </div>
-              </CommentInfo>
-            </CommentInfoBox>
-            <DetailBtn />
-          </CommentDetailBox>
-        )}
-      </DetailContext.Provider>
+      > */}
+      {comment && (
+        <CommentDetailBox>
+          <CommentInfoBox>
+            <figure>
+              <Avatar src={comment.avatar} alt={comment.nickname}></Avatar>
+            </figure>
+            <CommentInfo>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  lineHeight: "1.3",
+                }}
+              >
+                <h3>To.{comment.writedTo}</h3>
+                <CommentFont fontSize="20px" fontWeight="500">
+                  {comment.nickname}
+                </CommentFont>
+                <CommentFont fontSize="13px" fontWeight="200">
+                  {comment.createdAt}
+                </CommentFont>
+              </div>
+            </CommentInfo>
+          </CommentInfoBox>
+          <DetailBtn
+            comment={comment}
+            editedContent={editedContent}
+            setEditedContent={setEditedContent}
+            setCommentsList={setCommentsList}
+            commentsList={commentsList}
+            id={id}
+          />
+        </CommentDetailBox>
+      )}
+      {/* </DetailContext.Provider> */}
     </div>
   );
 }

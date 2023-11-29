@@ -1,29 +1,18 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { CommentInfoBox, CommentFont } from "assets/Theme";
-import { CommonContext } from "context/CommonContext";
-import db from "db";
+// import { CommonContext } from "context/CommonContext";
+// import db from "db";
 
-function CommentsList() {
-  const { selectedMemberName, commentsList, setCommentsList } =
-    useContext(CommonContext);
+function CommentsList({ selectedMemberName, commentsList }) {
+  // const { selectedMemberName, commentsList, setCommentsList } =
+  //   useContext(CommonContext);
 
   const navigate = useNavigate();
 
-  console.log();
-  useEffect(() => {
-    if (commentsList.length !== 0) {
-      return;
-    }
-    const fetchData = async () => {
-      const response = await axios.get("http://localhost:3001/commentData");
-      setCommentsList(response.data);
-    };
-    fetchData();
-  }, []);
+  console.log(commentsList);
 
   const filteredComments =
     selectedMemberName !== "all"
@@ -35,8 +24,14 @@ function CommentsList() {
   return (
     <CommentWindow>
       <h2>Letter to your HERO!</h2>
-      {filteredComments.map((comment) => {
-        return (
+
+      {filteredComments.length === 0 ? (
+        <NoComment>
+          당신의 HERO, <span>{selectedMemberName}</span> 선수에게 첫 번째
+          팬레터를 보내세요!.
+        </NoComment>
+      ) : (
+        filteredComments.map((comment) => (
           <ul key={comment.id}>
             <StyledLink to={`/detail/${comment.id}`}>
               <CommentInfoBox onClick={() => navigate(`/detail/${comment.id}`)}>
@@ -62,23 +57,27 @@ function CommentsList() {
               </CommentInfoBox>
             </StyledLink>
           </ul>
-        );
-      })}
-
-      {selectedMemberName !== "all" &&
-        commentsList.filter(
-          (comment) => comment.writedTo === selectedMemberName
-        ).length === 0 && (
-          <NoComment>
-            당신의 HERO, <span>{selectedMemberName}</span> 선수에게 첫 번째
-            팬레터를 보내세요!.
-          </NoComment>
-        )}
+        ))
+      )}
     </CommentWindow>
   );
 }
 
 export default CommentsList;
+
+// {
+//   /* // {selectedMemberName !== "all" &&
+//       //   commentsList.filter(
+//       //     (comment) => comment.writedTo === selectedMemberName
+//       //   ).length === 0 && (
+//       //     <NoComment>
+//       //       당신의 HERO, <span>{selectedMemberName}</span> 선수에게 첫 번째
+//       //       팬레터를 보내세요!.
+//       //     </NoComment>
+//       //   )}
+//   );
+// } */
+// }
 
 const StyledLink = styled(Link)`
   text-decoration: none;

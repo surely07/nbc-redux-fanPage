@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <HeaderBox>
-      <HeaderFont to="/">Tottenham Hotspur</HeaderFont>
+      <StLink to="/">
+        <HeaderFont>Tottenham Hotspur Fan Page</HeaderFont>
+      </StLink>
     </HeaderBox>
   );
 }
@@ -22,8 +24,13 @@ const HeaderBox = styled.div`
   justify-content: center;
 `;
 
-const HeaderFont = styled(Link)`
+const HeaderFont = styled.h1`
   color: white;
   font-size: 40px;
   padding: 20px;
+`;
+
+const StLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;

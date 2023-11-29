@@ -1,21 +1,27 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import uuid from "react-uuid";
 import styled from "styled-components";
 import { Btn, BtnArea } from "assets/Theme";
-import { CommonContext } from "context/CommonContext";
+import axios from "axios";
+// import { CommonContext } from "context/CommonContext";
 
-function InputBox() {
-  const {
-    selectedMemberName,
-    setSelectedMemberName,
-    commentsList,
-    setCommentsList,
-  } = useContext(CommonContext);
+function InputBox({
+  selectedMemberName,
+  setSelectedMemberName,
+  commentsList,
+  setCommentsList,
+}) {
+  // const {
+  //   selectedMemberName,
+  //   setSelectedMemberName,
+  //   commentsList,
+  //   setCommentsList,
+  // } = useContext(CommonContext);
 
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
 
-  const commentSubmitHandler = (e) => {
+  const commentSubmitHandler = async (e) => {
     e.preventDefault();
 
     let now = new Date();
@@ -30,9 +36,11 @@ function InputBox() {
       id: uuid(),
     };
 
-    if (name.trim() === "" || comment.trim() === "") {
+    if (!name || !comment) {
       alert("닉네임과 내용을 모두 입력하세요!");
     } else {
+      await axios.post("http://localhost:3001/commentData", newComment);
+
       setCommentsList([...commentsList, newComment]);
       setName("");
       setComment("");
@@ -41,7 +49,7 @@ function InputBox() {
 
   return (
     <div>
-      <PostBox onSubmit={commentSubmitHandler}>
+      <PostBox onSubmit={commentSubmitHandler} id={comment}>
         <section>
           <div>
             <label htmlFor="nickname">닉네임</label>
