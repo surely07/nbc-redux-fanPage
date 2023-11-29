@@ -1,14 +1,6 @@
 {
   "commentData": [
     {
-      "createdAt": "2023. 11. 30. 오전 1:33:27",
-      "nickname": "ㄴㄴㄴㄴㄴㄴㄴㄴ",
-      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg",
-      "content": "안돼",
-      "writedTo": "Guglielmo Vicario",
-      "id": "640638ab-b18a-f676-a407-f3044edea070"
-    },
-    {
       "createdAt": "2023. 11. 30. 오전 1:57:31",
       "nickname": "ㄴㄴㄴ",
       "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg",
@@ -17,20 +9,20 @@
       "id": "b41e7d68-1148-e30d-4466-dced5282aa74"
     },
     {
-      "createdAt": "2023. 11. 30. 오전 3:45:31",
-      "nickname": "ㄹㄹㄹ",
-      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg",
-      "content": "ㄹㄹㄹㄹ",
-      "writedTo": "all",
-      "id": "04daaed1-537d-c1cb-6ada-45c3ddbfbb73"
-    },
-    {
       "createdAt": "2023. 11. 30. 오전 3:53:18",
       "nickname": "ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄴ",
       "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg",
       "content": "ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ",
       "writedTo": "Heung-Min Son",
       "id": "9895a075-f218-9c13-f0e6-cc54bec60b1f"
+    },
+    {
+      "createdAt": "2023. 11. 30. 오전 4:08:59",
+      "nickname": "ㄹㄹㄹ",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/36.jpg",
+      "content": "ㄹㄹㄹㄹㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ",
+      "writedTo": "Heung-Min Son",
+      "id": "c7695088-2905-a1ce-24a5-b16dd75d684b"
     }
   ]
 }
