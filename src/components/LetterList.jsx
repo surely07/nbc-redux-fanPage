@@ -1,42 +1,33 @@
-import React, { useEffect, useContext } from "react";
-import styled from "styled-components";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import { CommentInfoBox, CommentFont } from "assets/Theme";
-import { CommonContext } from "context/CommonContext";
-import db from "db";
+import styled from "styled-components";
+import { CommentInfoBox, CommentFont } from "style/Theme";
+import { useSelector } from "react-redux";
 
-function CommentsList() {
-  const { selectedMemberName, commentsList, setCommentsList } =
-    useContext(CommonContext);
+function LettersList() {
+  const letters = useSelector((state) => state.letters);
+  const selectedMemberName = useSelector((state) => state.member);
+  console.log(selectedMemberName);
 
   const navigate = useNavigate();
 
-  console.log();
-  useEffect(() => {
-    if (commentsList.length !== 0) {
-      return;
-    }
-    const fetchData = async () => {
-      const response = await axios.get("http://localhost:3001/commentData");
-      setCommentsList(response.data);
-    };
-    fetchData();
-  }, []);
-
   const filteredComments =
     selectedMemberName !== "all"
-      ? commentsList.filter(
-          (comment) => comment.writedTo === selectedMemberName
-        )
-      : commentsList;
+      ? letters.filter((comment) => comment.writedTo === selectedMemberName)
+      : letters;
 
   return (
     <CommentWindow>
       <h2>Letter to your HERO!</h2>
-      {filteredComments.map((comment) => {
-        return (
+
+      {filteredComments.length === 0 ? (
+        <NoComment>
+          당신의 HERO, <span>{selectedMemberName}</span> 선수에게 첫 번째
+          팬레터를 보내세요!.
+        </NoComment>
+      ) : (
+        filteredComments.map((comment) => (
           <ul key={comment.id}>
             <StyledLink to={`/detail/${comment.id}`}>
               <CommentInfoBox onClick={() => navigate(`/detail/${comment.id}`)}>
@@ -62,23 +53,13 @@ function CommentsList() {
               </CommentInfoBox>
             </StyledLink>
           </ul>
-        );
-      })}
-
-      {selectedMemberName !== "all" &&
-        commentsList.filter(
-          (comment) => comment.writedTo === selectedMemberName
-        ).length === 0 && (
-          <NoComment>
-            당신의 HERO, <span>{selectedMemberName}</span> 선수에게 첫 번째
-            팬레터를 보내세요!.
-          </NoComment>
-        )}
+        ))
+      )}
     </CommentWindow>
   );
 }
 
-export default CommentsList;
+export default LettersList;
 
 const StyledLink = styled(Link)`
   text-decoration: none;

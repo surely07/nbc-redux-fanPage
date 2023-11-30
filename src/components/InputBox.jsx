@@ -1,21 +1,21 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import uuid from "react-uuid";
+import axios from "axios";
 import styled from "styled-components";
-import { Btn, BtnArea } from "assets/Theme";
-import { CommonContext } from "context/CommonContext";
+import { Btn, BtnArea } from "style/Theme";
+import { addLetter } from "redux/modules/letters";
+import { useDispatch, useSelector } from "react-redux";
+import { setMember } from "redux/modules/member";
 
 function InputBox() {
-  const {
-    selectedMemberName,
-    setSelectedMemberName,
-    commentsList,
-    setCommentsList,
-  } = useContext(CommonContext);
+  const selectedMemberName = useSelector((state) => state.member);
+  const dispatch = useDispatch();
 
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
+  // const [member, setMember] = useState("all");
 
-  const commentSubmitHandler = (e) => {
+  const commentSubmitHandler = async (e) => {
     e.preventDefault();
 
     let now = new Date();
@@ -30,10 +30,13 @@ function InputBox() {
       id: uuid(),
     };
 
-    if (name.trim() === "" || comment.trim() === "") {
+    if (!name || !comment) {
       alert("닉네임과 내용을 모두 입력하세요!");
     } else {
-      setCommentsList([...commentsList, newComment]);
+      await axios.post("http://localhost:3001/commentData", newComment);
+      await axios.get("http://localhost:3001/commentData");
+
+      dispatch(addLetter(newComment));
       setName("");
       setComment("");
     }
@@ -41,7 +44,7 @@ function InputBox() {
 
   return (
     <div>
-      <PostBox onSubmit={commentSubmitHandler}>
+      <PostBox onSubmit={commentSubmitHandler} id={comment}>
         <section>
           <div>
             <label htmlFor="nickname">닉네임</label>
@@ -74,7 +77,8 @@ function InputBox() {
             <select
               id="select"
               value={selectedMemberName}
-              onChange={(e) => setSelectedMemberName(e.target.value)}
+              onChange={(e) => dispatch(setMember(e.target.value))}
+              // (e) => setSelectedMemberName(e.target.value)
             >
               <option>all</option>
               <option>Heung-Min Son</option>

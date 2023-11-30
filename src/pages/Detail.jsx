@@ -1,63 +1,57 @@
-import React, { useEffect, useState, useContext } from "react";
-import { CommentInfoBox, CommentFont } from "assets/Theme";
-import styled from "styled-components";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import { CommentInfoBox, CommentFont } from "style/Theme";
 import DetailBtn from "components/DetailBtn";
-import { DetailContext, CommonContext } from "context/CommonContext";
+import { useSelector } from "react-redux";
 
 function Detail() {
-  const { commentsList } = useContext(CommonContext);
-
   const { id } = useParams();
-  const [comment, setComment] = useState(null);
   const [editedContent, setEditedContent] = useState("");
-
-  useEffect(() => {
-    const selectedComment = commentsList.find(
-      (comment) => comment.id === parseInt(id, 10)
-    );
-    setComment(selectedComment);
-    setEditedContent(selectedComment?.content || "");
-  }, [commentsList, id]);
+  const letters = useSelector((state) => state.letters);
+  const selectedComment = letters.find((comment) => comment.id === id);
 
   return (
     <div>
-      <DetailContext.Provider
-        value={{ comment, editedContent, setEditedContent }}
-      >
-        {comment && (
-          <CommentDetailBox>
-            <CommentInfoBox>
-              <figure>
-                <Avatar src={comment.avatar} alt={comment.nickname}></Avatar>
-              </figure>
-              <CommentInfo>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
-                    lineHeight: "1.3",
-                  }}
-                >
-                  <h3>To.{comment.writedTo}</h3>
-                  <CommentFont fontSize="20px" fontWeight="500">
-                    {comment.nickname}
-                  </CommentFont>
-                  <CommentFont fontSize="13px" fontWeight="200">
-                    {comment.createdAt}
-                  </CommentFont>
-                </div>
-              </CommentInfo>
-            </CommentInfoBox>
-            <DetailBtn />
-          </CommentDetailBox>
-        )}
-      </DetailContext.Provider>
+      {selectedComment && (
+        <CommentDetailBox key={selectedComment.id}>
+          <CommentInfoBox>
+            <figure>
+              <Avatar
+                src={selectedComment.avatar}
+                alt={selectedComment.nickname}
+              ></Avatar>
+            </figure>
+            <CommentInfo>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  lineHeight: "1.3",
+                }}
+              >
+                <h3>To.{selectedComment.writedTo}</h3>
+                <CommentFont fontSize="20px" fontWeight="500">
+                  {selectedComment.nickname}
+                </CommentFont>
+                <CommentFont fontSize="13px" fontWeight="200">
+                  {selectedComment.createdAt}
+                </CommentFont>
+              </div>
+            </CommentInfo>
+          </CommentInfoBox>
+          <DetailBtn
+            comment={selectedComment}
+            editedContent={editedContent}
+            setEditedContent={setEditedContent}
+            id={id}
+          />
+        </CommentDetailBox>
+      )}
     </div>
   );
 }
-
 export default Detail;
 
 const CommentDetailBox = styled.div`

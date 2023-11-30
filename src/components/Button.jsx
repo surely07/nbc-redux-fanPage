@@ -1,14 +1,11 @@
-import React, { useContext } from "react";
-import { members } from "shared/members";
+import React from "react";
 import styled from "styled-components";
-import { CommonContext } from "context/CommonContext";
+import { members } from "common/members";
+import { useDispatch } from "react-redux";
+import { setMember } from "redux/modules/member";
 
 function Button() {
-  const { setSelectedMemberName } = useContext(CommonContext);
-
-  const memberClickHandler = (name) => {
-    setSelectedMemberName(name);
-  };
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -18,8 +15,7 @@ function Button() {
             <div key={item.id}>
               <PlayerBtn
                 onClick={() => {
-                  setSelectedMemberName(item.name);
-                  memberClickHandler(item.name);
+                  dispatch(setMember(item.name));
                 }}
               >
                 {item.name}

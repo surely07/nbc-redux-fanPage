@@ -1,11 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setMember } from "redux/modules/member";
 
 function Header() {
+  // const selectedMemberName = useSelector((state) => state.members);
+  const dispatch = useDispatch();
+
   return (
     <HeaderBox>
-      <HeaderFont to="/">Tottenham Hotspur</HeaderFont>
+      <StLink to="/" onClick={() => dispatch(setMember("all"))}>
+        <HeaderFont>Tottenham Hotspur Fan Page</HeaderFont>
+      </StLink>
     </HeaderBox>
   );
 }
@@ -22,8 +29,13 @@ const HeaderBox = styled.div`
   justify-content: center;
 `;
 
-const HeaderFont = styled(Link)`
+const HeaderFont = styled.h1`
   color: white;
   font-size: 40px;
   padding: 20px;
+`;
+
+const StLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;

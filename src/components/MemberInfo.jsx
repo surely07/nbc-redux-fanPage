@@ -1,17 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { members } from "shared/members";
+import { members } from "common/members";
 import {
   MainDisplay,
   MainContainer,
   MemberDetail,
   MemberNumber,
-} from "assets/Theme";
-import { CommonContext } from "context/CommonContext";
+} from "style/Theme";
+import { useSelector } from "react-redux";
 
 function MemberInfo() {
-  const { selectedMemberName } = useContext(CommonContext);
-
+  const selectedMemberName = useSelector((state) => state.member);
   const selectedMember = members.find(
     (member) => member.name === selectedMemberName
   );

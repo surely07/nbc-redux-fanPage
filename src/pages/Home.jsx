@@ -1,9 +1,9 @@
 import React from "react";
-import { MainDisplay, MainContainer } from "assets/Theme";
+import { MainDisplay, MainContainer } from "style/Theme";
 import MemberInfo from "components/MemberInfo";
 import InputBox from "components/InputBox";
-import CommentsList from "components/CommentsList";
 import Button from "components/Button";
+import LettersList from "components/LetterList";
 
 function Home() {
   return (
@@ -13,7 +13,7 @@ function Home() {
         <MemberInfo />
       </MainContainer>
       <InputBox />
-      <CommentsList />
+      <LettersList />
     </MainDisplay>
   );
 }

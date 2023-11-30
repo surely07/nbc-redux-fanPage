@@ -1,47 +1,41 @@
-import React, { useState, useContext } from "react";
-import { Btn, BtnArea } from "assets/Theme";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
-import { CommonContext, DetailContext } from "context/CommonContext";
+import { Btn, BtnArea } from "style/Theme";
+import { useDispatch } from "react-redux";
+import { setLetter } from "redux/modules/letters";
 
-function DetailBtn() {
-  const { setCommentsList } = useContext(CommonContext);
-  const { comment, editedContent, setEditedContent } =
-    useContext(DetailContext);
+function DetailBtn({ comment, editedContent, setEditedContent, id }) {
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
-
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
+  const handleDeleteBtn = async () => {
+    const answer = window.confirm("정말로 삭제하시겠습니까?");
+    if (!answer) return;
 
-  const handleDelete = () => {
-    setCommentsList((prevComments) =>
-      prevComments.filter((item) => item.id !== comment.id)
-    );
-    alert("정말 삭제하시겠습니까?");
+    await axios.delete(`http://localhost:3001/commentData/${id}`);
+    const response = await axios.get("http://localhost:3001/commentData");
     navigate("/");
+    dispatch(setLetter(response.data));
   };
 
-  const handleSaveEdit = () => {
-    if (editedContent === comment.content) {
-      alert("아무런 수정사항이 없습니다.");
-      setIsEditing(false);
-    } else {
-      setCommentsList((prevComments) =>
-        prevComments.map((item) =>
-          item.id === comment.id ? { ...item, content: editedContent } : item
-        )
-      );
-      setIsEditing(false);
+  const handleSaveBtn = async () => {
+    if (!editedContent) {
+      alert("수정사항이 없습니다.");
+      return;
     }
-  };
+    //  db 변경
+    await axios.patch(`http://localhost:3001/commentData/${id}`, {
+      content: editedContent,
+    });
 
-  const handleCancelEdit = () => {
+    // 최신 db 불러오기
+    const response = await axios.get("http://localhost:3001/commentData");
+    dispatch(setLetter(response.data));
     setIsEditing(false);
-    setEditedContent(comment.content);
   };
 
   return (
@@ -50,22 +44,23 @@ function DetailBtn() {
         <>
           <Comment>
             <Textarea
-              value={editedContent}
+              autoFocus
+              defaultValue={comment.content}
               onChange={(e) => setEditedContent(e.target.value)}
             ></Textarea>
           </Comment>
 
           <BtnArea>
-            <Btn onClick={handleSaveEdit}>저장</Btn>
-            <Btn onClick={handleCancelEdit}>취소</Btn>
+            <Btn onClick={() => setIsEditing(false)}>취소</Btn>
+            <Btn onClick={handleSaveBtn}>저장</Btn>
           </BtnArea>
         </>
       ) : (
         <>
           <Comment>{comment.content}</Comment>
           <BtnArea>
-            <Btn onClick={handleEdit}>수정</Btn>
-            <Btn onClick={handleDelete}>삭제</Btn>
+            <Btn onClick={() => setIsEditing(true)}>수정</Btn>
+            <Btn onClick={handleDeleteBtn}>삭제</Btn>
           </BtnArea>
         </>
       )}
