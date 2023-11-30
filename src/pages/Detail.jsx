@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { CommentInfoBox, CommentFont } from "style/Theme";
@@ -6,25 +6,21 @@ import DetailBtn from "components/DetailBtn";
 import { useSelector } from "react-redux";
 
 function Detail() {
-  const letters = useSelector((state) => state.letters);
-
   const { id } = useParams();
-  const [comment, setComment] = useState(null);
   const [editedContent, setEditedContent] = useState("");
-
-  useEffect(() => {
-    const selectedComment = letters.find((comment) => comment.id === id);
-    setComment(selectedComment);
-    setEditedContent(selectedComment?.content || "");
-  }, [letters, id]);
+  const letters = useSelector((state) => state.letters);
+  const selectedComment = letters.find((comment) => comment.id === id);
 
   return (
     <div>
-      {comment && (
-        <CommentDetailBox>
+      {selectedComment && (
+        <CommentDetailBox key={selectedComment.id}>
           <CommentInfoBox>
             <figure>
-              <Avatar src={comment.avatar} alt={comment.nickname}></Avatar>
+              <Avatar
+                src={selectedComment.avatar}
+                alt={selectedComment.nickname}
+              ></Avatar>
             </figure>
             <CommentInfo>
               <div
@@ -35,18 +31,18 @@ function Detail() {
                   lineHeight: "1.3",
                 }}
               >
-                <h3>To.{comment.writedTo}</h3>
+                <h3>To.{selectedComment.writedTo}</h3>
                 <CommentFont fontSize="20px" fontWeight="500">
-                  {comment.nickname}
+                  {selectedComment.nickname}
                 </CommentFont>
                 <CommentFont fontSize="13px" fontWeight="200">
-                  {comment.createdAt}
+                  {selectedComment.createdAt}
                 </CommentFont>
               </div>
             </CommentInfo>
           </CommentInfoBox>
           <DetailBtn
-            comment={comment}
+            comment={selectedComment}
             editedContent={editedContent}
             setEditedContent={setEditedContent}
             id={id}
@@ -56,7 +52,6 @@ function Detail() {
     </div>
   );
 }
-
 export default Detail;
 
 const CommentDetailBox = styled.div`

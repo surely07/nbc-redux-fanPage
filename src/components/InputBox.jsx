@@ -12,6 +12,7 @@ function InputBox() {
 
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
+  const [member, setMember] = useState("all");
 
   const commentSubmitHandler = async (e) => {
     e.preventDefault();
@@ -32,6 +33,7 @@ function InputBox() {
       alert("닉네임과 내용을 모두 입력하세요!");
     } else {
       await axios.post("http://localhost:3001/commentData", newComment);
+      await axios.get("http://localhost:3001/commentData");
 
       dispatch(addLetter(newComment));
       setName("");

@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 function LettersList() {
   const letters = useSelector((state) => state.letters);
   const selectedMemberName = useSelector((state) => state.member);
+  console.log(selectedMemberName);
 
   const navigate = useNavigate();
 
