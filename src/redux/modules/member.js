@@ -12,8 +12,7 @@ const initialState = "all";
 const member = (state = initialState, action) => {
   switch (action.type) {
     case SET_MEMBER:
-      const activeMember = action.payload;
-      return activeMember;
+      return action.payload;
     default:
       return state;
   }

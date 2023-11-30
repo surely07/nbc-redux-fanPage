@@ -3,8 +3,9 @@ import uuid from "react-uuid";
 import axios from "axios";
 import styled from "styled-components";
 import { Btn, BtnArea } from "style/Theme";
-import { addLetter, editLetter } from "redux/modules/letters";
+import { addLetter } from "redux/modules/letters";
 import { useDispatch, useSelector } from "react-redux";
+import { setMember } from "redux/modules/member";
 
 function InputBox() {
   const selectedMemberName = useSelector((state) => state.member);
@@ -12,7 +13,7 @@ function InputBox() {
 
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
-  const [member, setMember] = useState("all");
+  // const [member, setMember] = useState("all");
 
   const commentSubmitHandler = async (e) => {
     e.preventDefault();
@@ -76,7 +77,8 @@ function InputBox() {
             <select
               id="select"
               value={selectedMemberName}
-              onChange={(e) => dispatch(editLetter(e.target.value))}
+              onChange={(e) => dispatch(setMember(e.target.value))}
+              // (e) => setSelectedMemberName(e.target.value)
             >
               <option>all</option>
               <option>Heung-Min Son</option>

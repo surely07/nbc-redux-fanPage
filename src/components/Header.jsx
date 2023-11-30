@@ -1,11 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setMember } from "redux/modules/member";
 
 function Header() {
+  // const selectedMemberName = useSelector((state) => state.members);
+  const dispatch = useDispatch();
+
   return (
     <HeaderBox>
-      <StLink to="/">
+      <StLink to="/" onClick={() => dispatch(setMember("all"))}>
         <HeaderFont>Tottenham Hotspur Fan Page</HeaderFont>
       </StLink>
     </HeaderBox>
